@@ -1,8 +1,8 @@
-# Efivalidate
+# `efivalidate`
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/efivalidate`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+`efivalidate` is a ruby utility to take a given input EFI payload from macOS and to compare it against
+Apple's validation schema.  Being written in ruby this can occur off-box to ensure that the utility itself
+hasn't been compromised
 
 ## Installation
 
@@ -22,7 +22,20 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ efivalidate
+
+    Usage: efivalidate {input.bin} [PARAMS]
+
+      {input.bin} is a EFI payload saved using either `eficheck` or `BootRomFlash.efi`
+
+      --download-signatures
+
+          Attempts to download Apple's EFI signatures from their update service
+
+      --signatures-path
+
+          Points to a path on disk where known EFI signatures exist
+
 
 ## Development
 
