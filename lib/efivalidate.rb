@@ -1,5 +1,9 @@
 require "efivalidate/version"
+require 'iostruct'
 
-module Efivalidate
+module EFIValidate
   # Your code goes here...
+  autoload :EALFHeader, 'efivalidate/ealf_header'
+  autoload :EALFRow, 'efivalidate/ealf_row'
+  autoload :EALFParser, 'efivalidate/ealf_parser'
 end
