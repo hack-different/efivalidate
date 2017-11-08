@@ -1,5 +1,7 @@
 # `efivalidate`
 
+Important: See `FORMAT.md`
+
 `efivalidate` is a ruby utility to take a given input EFI payload from macOS and to compare it against
 Apple's validation schema.  Being written in ruby this can occur off-box to ensure that the utility itself
 hasn't been compromised
