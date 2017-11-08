@@ -5,7 +5,7 @@ require "efivalidate/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "efivalidate"
-  spec.version       = Efivalidate::VERSION
+  spec.version       = EFIValidate::VERSION
   spec.authors       = ["Rick Mark"]
   spec.email         = ["rickmark@outlook.com"]
 

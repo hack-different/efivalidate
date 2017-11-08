@@ -6,7 +6,7 @@ module EFIValidate
       @header = EFIValidate::EALFHeader.read(data)
 
       @rows = []
-      @header.rows.times do
+      @header.ealf_rows.times do
         @rows << EFIValidate::EALFRow.read(data)
       end
     end
