@@ -5,9 +5,9 @@ module EFIValidate
   #
   # A EALF file is a collection of regions an
   class EALFRow < IOStruct.new 'CCvLLa16a*',
+                               :ealf_component,
                                :ealf_region,
-                               :ealf_subregion,
-                               :ealf_index,
+                               :ealf_master,
                                :ealf_offset,
                                :ealf_length,
                                :ealf_uuid,
@@ -24,7 +24,7 @@ module EFIValidate
     end
 
     def to_s
-      "<#{ '%02x' % self.ealf_region }:#{ '%02x' % self.ealf_subregion }:#{ "%04x" % self.ealf_index }:#{ "%08x" % self.ealf_offset }:#{ "%08x" % self.ealf_length}:#{self.uuid}:#{self.hash}>"
+      "<#{'%02x' % ealf_component}:#{ '%02x' % self.ealf_region }:#{ "%04x" % self.ealf_master }:#{ "%08x" % self.ealf_offset }:#{ "%08x" % self.ealf_length}:#{self.uuid}:#{self.hash}>"
     end
   end
 end

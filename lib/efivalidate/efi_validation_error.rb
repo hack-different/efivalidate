@@ -1,9 +1,11 @@
 module EFIValidate
   class EFIValidationError
+    attr_reader :row, :data, :hash
+
     def initialize(row, data, hash)
       @row = row
       @data = data
-      @calculated_hash = hash
+      @hash = hash
     end
 
     def to_s

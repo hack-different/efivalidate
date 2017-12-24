@@ -1,3 +1,29 @@
 #!/usr/bin/env ruby
+require 'bundler/setup'
 
 require "efivalidate"
+require 'optionparser'
+
+if ARGV.count != 2
+  puts "efivalidate EFI_FILE EALF_FILE"
+  exit -1
+end
+
+efi = ARGV[0]
+ealf = ARGV[1]
+
+parser = EFIValidate::EALFParser.read ealf
+validator = EFIValidate::EFIValidator.new parser, File.open(efi)
+
+validator.validate
+
+if validator.is_valid?
+  puts "EFI file matches EALF baseline. (#{parser.rows.count} hashes match)"
+else
+  puts "EFI file matched #{parser.rows.count - validator.errors.count} hashes from EALF.\n"
+  puts "EFI file has #{validator.errors.count} hash errors:\n\n"
+  validator.errors.each do |error|
+    puts "Actual Hash: #{error.hash}"
+    puts "Expected Hash from EALF:\n#{error.row.to_s}\n\n"
+  end
+end
