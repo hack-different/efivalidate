@@ -6,7 +6,7 @@ NOTE: In progress
 * 0-4: "magic" = "EALF"
 * 5-8: number of hash rows
 * 9-12: file size in bytes
-* 13: ?? Hash function, 01 = sha256?
+* 13: ?? Hash function, 00 = sha1, 01 = sha256
 * Zeros?
 * 30: UInt16 Offset to hash table
 * 32: UInt16 Number of Unicode-16 characters following
