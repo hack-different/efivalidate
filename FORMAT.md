@@ -14,7 +14,7 @@ NOTE: In progress
 
 # 60 byte "rows"
 * 1 byte FD region (see `fdutil`)
-    * 0 = FD header
+    * 0 = FD header / region
     * 1 = BIOS / EFI
     * 2 = Intel ME (Code + Data)
     * 3 = Gigabit Ethernet (Unused)

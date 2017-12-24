@@ -11,7 +11,15 @@ module EFIValidate
     def validate!
       @errors = []
 
+      @parser.rows.each do |row|
+        @data.seek row.ealf_offset
 
+        section_data = @data.read row.ealf_length
+
+        calculated_hash = @parser.header.create_hash.hexdigest section_data
+
+        @errors << EFIValidationError.new(row, section_data, calculated_hash) unless calculated_hash == row.hash
+      end
     end
 
     def validate

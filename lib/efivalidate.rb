@@ -7,4 +7,5 @@ module EFIValidate
   autoload :EALFRow, 'efivalidate/ealf_row'
   autoload :EALFParser, 'efivalidate/ealf_parser'
   autoload :EFIValidator, 'efivalidate/efi_validator'
+  autoload :EFIValidationError, 'efivalidate/efi_validation_error'
 end
