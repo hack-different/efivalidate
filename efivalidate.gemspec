@@ -7,10 +7,10 @@ Gem::Specification.new do |spec|
   spec.name          = "efivalidate"
   spec.version       = EFIValidate::VERSION
   spec.authors       = ["Rick Mark"]
-  spec.email         = ["rickmark@outlook.com"]
+  spec.email         = ["rickmark@dropbox.com"]
 
   spec.summary       = %q{Validate Apple EFI images offline}
-  spec.description   = %q{Validate Apple EFI images offline}
+  spec.description   = %q{Implements an algorithm to compare Apple EFI against their EALF baselines.}
   spec.homepage      = "https://github.com/rickmark/efivalidate"
   spec.license       = "MIT"
 
@@ -30,8 +30,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency 'iostruct'
-  spec.add_runtime_dependency 'uuidtools'
+  spec.add_runtime_dependency 'iostruct', '~> 0.0.4'
+  spec.add_runtime_dependency 'uuidtools', '~> 2.1'
 
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"
