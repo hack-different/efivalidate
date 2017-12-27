@@ -16,7 +16,7 @@ module EFIValidate
 
         section_data = @data.read row.ealf_length
 
-        calculated_hash = @parser.header.create_hash.hexdigest section_data
+        calculated_hash = @parser.header.create_hash.hexdigest (section_data || '')
 
         @errors << EFIValidationError.new(row, section_data, calculated_hash) unless calculated_hash == row.hash
       end

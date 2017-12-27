@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Rick Mark"]
   spec.email         = ["rickmark@dropbox.com"]
 
-  spec.summary       = %q{Validate Apple EFI images offline}
-  spec.description   = %q{Implements an algorithm to compare Apple EFI against their EALF baselines.}
+  spec.summary       = %q{Validate Apple EFI images against whitelist}
+  spec.description   = %q{Implements an algorithm to compare Apple EFI against their EALF whitelist baselines.}
   spec.homepage      = "https://github.com/rickmark/efivalidate"
   spec.license       = "MIT"
 
