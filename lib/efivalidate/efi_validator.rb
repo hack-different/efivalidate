@@ -12,6 +12,8 @@ module EFIValidate
       @errors = []
 
       @parser.rows.each do |row|
+        next if row.is_privacy_row?
+
         @data.seek row.ealf_offset
 
         section_data = @data.read row.ealf_length
