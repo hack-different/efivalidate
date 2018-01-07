@@ -13,7 +13,7 @@ efi = ARGV[0]
 ealf = ARGV[1]
 
 parser = EFIValidate::EALFParser.read ealf
-validator = EFIValidate::EFIValidator.new parser, File.open(efi)
+validator = EFIValidate::EFIValidator.new parser, efi
 
 validator.validate
 

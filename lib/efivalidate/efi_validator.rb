@@ -5,9 +5,12 @@ module EFIValidate
 
     def initialize(parser, file)
       @parser = parser
-      @data = file.read
 
-      # perform_core_sec_fixup if @parser.rows.any?(&:core_sec?)
+      reader = File.open(file, mode: 'rb')
+      @data = reader.read
+      reader.close
+
+      perform_core_sec_fixup if @parser.rows.any?(&:core_sec?)
     end
 
     def validate!
@@ -23,7 +26,7 @@ module EFIValidate
     end
 
     def get_region(offset, length)
-      @data[offset, length]
+      @data[offset, length] || ''
     end
 
     def perform_core_sec_fixup

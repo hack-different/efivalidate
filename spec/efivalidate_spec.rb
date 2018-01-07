@@ -13,7 +13,7 @@ RSpec.describe EFIValidate do
     expect(parser.header.ealf_size).to eq File.size(path)
 
     firmware_path = File.join(__dir__, 'fixtures/MBP114_0177_B00.fd')
-    validator = EFIValidate::EFIValidator.new(parser, File.open(firmware_path))
+    validator = EFIValidate::EFIValidator.new(parser, firmware_path)
 
     validator.validate
 
@@ -32,7 +32,7 @@ RSpec.describe EFIValidate do
     expect(parser.header.ealf_size).to eq File.size(path)
 
     firmware_path = File.join(__dir__, 'fixtures/MBP114_0177_B00_bad.fd')
-    validator = EFIValidate::EFIValidator.new(parser, File.open(firmware_path))
+    validator = EFIValidate::EFIValidator.new(parser, firmware_path)
 
     validator.validate
 
