@@ -9,7 +9,7 @@ module EFIValidate
     end
 
     def to_s
-      @row.to_s
+      "Expected #{row} to be #{@hash}"
     end
   end
 end
