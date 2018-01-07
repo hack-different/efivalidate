@@ -30,6 +30,8 @@ module EFIValidate
     end
 
     def perform_core_sec_fixup
+      # Apple zeros out what appears to be a hash and checksum before validating the SEC_CORE region
+
       @data[-0x100, 0x80] = "\0" * 0x80
       @data[-0x04, 0x04] = "\0" * 0x04
     end
