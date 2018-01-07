@@ -30,9 +30,8 @@ module EFIValidate
     end
 
     def perform_core_sec_fixup
-      [-0x100..0x80, -0x04..0x04].each do |range|
-        data[range] = '\0' * range.length
-      end
+      @data[-0x100, 0x80] = "\0" * 0x80
+      @data[-0x04, 0x04] = "\0" * 0x04
     end
 
     def validate

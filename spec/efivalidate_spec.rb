@@ -6,13 +6,13 @@ RSpec.describe EFIValidate do
   end
 
   it 'works on a correct firmware' do
-    path = File.join(__dir__, 'fixtures/MBP114.88Z.0177.B00.1708080033.0.ealf')
+    path = File.join(__dir__, 'fixtures/MBP142.88Z.0167.B00.1708080034.0.ealf')
     parser = EFIValidate::EALFParser.read(path)
 
-    expect(parser.rows.count).to eq 188
+    expect(parser.rows.count).to eq 113
     expect(parser.header.ealf_size).to eq File.size(path)
 
-    firmware_path = File.join(__dir__, 'fixtures/MBP114_0177_B00.fd')
+    firmware_path = File.join(__dir__, 'fixtures/MBP142_0167_B00.fd')
     validator = EFIValidate::EFIValidator.new(parser, firmware_path)
 
     validator.validate
