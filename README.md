@@ -58,7 +58,10 @@ The gem is available as open source under the terms of the [MIT License](http://
 
 So please, file feature requests, report bugs or better yet, send us pull requests! More on contributing below.
 
-## Contributing
+## Code Changes
+
 Step 1: If you're submitting a non-trivial change, please fill out the [Dropbox Contributor License Agreement](https://opensource.dropbox.com/cla/) first.
+
 Step 2: send a [pull request](https://help.github.com/articles/using-pull-requests/)
+
 Step 3: Profit!
