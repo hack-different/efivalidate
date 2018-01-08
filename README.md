@@ -47,12 +47,21 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/efivalidate. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/dropbox/efivalidate]. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
-## Code of Conduct
+## We need your help!
+`efivalidate` is under active development! As you can see from the API docs, we only support a small number of features today and have only scratched the surface of what's possible. We would love feedback from you, our users, to guide what to build next and how to improve the tool.
 
-Everyone interacting in the Efivalidate project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/efivalidate/blob/master/CODE_OF_CONDUCT.md).
+So please, file feature requests, report bugs or better yet, send us pull requests! More on contributing below.
+
+## Code Changes
+
+Step 1: If you're submitting a non-trivial change, please fill out the [Dropbox Contributor License Agreement](https://opensource.dropbox.com/cla/) first.
+
+Step 2: send a [pull request](https://help.github.com/articles/using-pull-requests/)
+
+Step 3: Profit!
