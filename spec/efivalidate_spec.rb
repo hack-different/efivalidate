@@ -63,7 +63,7 @@ RSpec.describe EFIValidate do
   end
 
   it "can list each row in the table" do
-    path = File.join(__dir__, 'fixtures/MBP114.88Z.0177.B00.1708080033.0.ealf')
+    path = File.join(__dir__, 'fixtures/MBP142.88Z.0167.B00.1708080034.0.ealf')
     parser = EFIValidate::EALFParser.read(path)
 
     parser.rows.each do |row|

@@ -54,7 +54,11 @@ module EFIValidate
                 "2e06a01b-79c7-8245-8566-336ae8f78f09" => 'SEC_CORE',
                 "17706906-2e5f-225e-ad94-5816399c720a" => 'APPLE_ROM_MANIFEST',
                 "a3b9f5ce-6d47-7f49-9fdc-e98143e0422c" => 'AMI_NVRAM_FILE',
-                "24465000-598a-eb4e-bd0f-6b36e96128e0" => 'PHOENIX_NVRAM_FIRMWARE_VOLUME' }
+                "24465000-598a-eb4e-bd0f-6b36e96128e0" => 'PHOENIX_NVRAM_FIRMWARE_VOLUME',
+                "153d2197-29bd-44dc-ac59-887f70e41a6b" => 'INTEL_MICROCODE',
+                "fff12b8d-7696-4c8b-a985-2747075b4f50" => 'NVRAM',
+                "04adeead-61ff-4d31-b6ba-64f8bf901f5a" => 'BOOT_VOLUME',
+                "ffffffff-ffff-ffff-ffff-ffffffffffff" => 'EFI_BLOCK_PADDING_REGION'}
 
   ROW_GUIDS.each do |key, value|
     const_set(value, UUIDTools::UUID.parse(key))
