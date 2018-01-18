@@ -5,6 +5,13 @@ RSpec.describe EFIValidate do
     expect(EFIValidate::VERSION).not_to be nil
   end
 
+  it 'finds a single row in a baseline with CORE_SEC' do
+    path = File.join(__dir__, 'fixtures/MBP142.88Z.0167.B00.1708080034.0.ealf')
+    parser = EFIValidate::EALFParser.read(path)
+
+    expect(parser.rows.any?(&:core_sec?)).to be_truthy
+  end
+
   it 'works on a correct firmware with SEC_CORE fixup' do
     path = File.join(__dir__, 'fixtures/MBP142.88Z.0167.B00.1708080034.0.ealf')
     parser = EFIValidate::EALFParser.read(path)

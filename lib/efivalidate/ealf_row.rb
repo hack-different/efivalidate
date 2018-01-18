@@ -29,7 +29,7 @@ module EFIValidate
     end
 
     def core_sec?
-      uuid == SEC_CORE
+      EFIValidate::ROW_GUIDS[uuid.to_s] == 'SEC_CORE'
     end
 
     def to_s
@@ -44,14 +44,12 @@ module EFIValidate
   def self.load_guids
     apple_guids = YAML.load_file(File.join(__dir__, 'apple_guids.yaml'))
 
-    puts apple_guids.inspect
-
-    const_set(:ROW_GUIDS, apple_guids['guid_types'])
+    result = {}
 
     apple_guids['guid_types'].each do |key, value|
-      const_set(value.to_sym, key)
+      result[key] = value.to_sym
     end
   end
 
-  load_guids
+  ROW_GUIDS = load_guids
 end
