@@ -36,6 +36,10 @@ module EFIValidate
       @data[-0x04, 0x04] = "\0" * 0x04
     end
 
+    def perform_bios_region_measurement
+
+    end
+
     def validate
       validate! unless @errors
     end

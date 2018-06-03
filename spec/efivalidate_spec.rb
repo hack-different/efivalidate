@@ -69,8 +69,17 @@ RSpec.describe EFIValidate do
     expect(validator.valid?).to be_falsey
   end
 
-  it "can list each row in the table" do
+  it 'can list each row in the table with SEC_CORE' do
     path = File.join(__dir__, 'fixtures/MBP142.88Z.0167.B00.1708080034.0.ealf')
+    parser = EFIValidate::EALFParser.read(path)
+
+    parser.rows.each do |row|
+      puts row
+    end
+  end
+
+  it 'can list each row in the table without SEC_CORE' do
+    path = File.join(__dir__, 'fixtures/MBP114.88Z.0177.B00.1708080033.0.ealf')
     parser = EFIValidate::EALFParser.read(path)
 
     parser.rows.each do |row|
