@@ -30,10 +30,10 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency 'iostruct', '~> 0.0.4'
-  spec.add_runtime_dependency 'uuidtools', '~> 2.1'
+  spec.add_runtime_dependency 'iostruct'
+  spec.add_runtime_dependency 'uuidtools'
 
-  spec.add_development_dependency "bundler", "~> 1.15"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "bundler"
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
 end
