@@ -2,30 +2,66 @@
 require 'bundler/setup'
 
 require 'efivalidate'
-require 'optionparser'
+require 'optparse'
 
-if ARGV.count != 1
-  puts "efivalidate EFI_FILE"
-  exit(-1)
+
+options = OpenStruct.new
+options.clean = false
+options.clean_me = false
+options.ignore_me = true
+options.verbose = false
+options.efi_file = nil
+options.ealf_files = [ File.join(__dir__, '../spec/fixtures/baselines/*.ealf') ]
+
+opt_parser = OptionParser.new do |opts|
+  opts.banner = "Usage: efivalidate [options] <efi_file>"
+
+  opts.separator ""
+  opts.separator "Specific options:"
+
+  opts.on("--clean", "Clear the empty EFI regions (prevents free space attacks)") do |t|
+    options.clean = true
+  end
+
+  opts.on("--clean-me", "Disable the Intel ME (requires me_cleaner.py on path)") do |t|
+    options.clean_me = true
+  end
+
+  opts.on("--baseline a,b,c", Array, "EALF files to use for validation") do |b|
+    options.ealf_files = b.map { |f| File.join(Dir.pwd, f) }
+  end
+
+  opts.on("--ignore-me", "Ignore Intel ME mismatches (useful if HAP set)") do
+    options.ignore_me = true
+  end
+
+  opts.on("--verbose", "Verbose output") do
+    options.verbose = true
+  end
 end
 
-efi = ARGV[0]
+opt_parser.parse!(ARGV)
 
-result = Dir.glob(File.join(__dir__, '../spec/fixtures/baselines/*.ealf')).any? do |baseline|
+baseline_files = options.flat_map { |glob| Dir.glob(glob)  }
 
-  parser = EFIValidate::EALFParser.read baseline
-  validator = EFIValidate::EFIValidator.new parser, efi
+efi_file = File.join(Dir.pwd, ARGV.last)
+efi_data = File.read(efi_file)
 
-  validator.validate
 
-  puts "Matched baseliene #{baseline}" if validator.valid?
+def evaluate_baseline(baseline_file, efi_data)
+  data = File.read(baseline)
 
-  validator.valid?
+  parser = EFIValidate::EALFParser(data)
+
+  EFIValidate::EFIValidator(parser, efi_data)
 end
 
+valid_match = (baseline_files.map { |baseline| -> { evaluate_baseline(baseline) } }).first(&:valid?)
 
-if result
-  puts "EFI file matches"
-else
-  puts "No valid match"
+if options.clean
+  cleaner = EFIValidate::EFICleaner(valid_match, efi_file)
+
+  cleaner.clean!
 end
+
+puts "Valid firmware match from file #{match.}"
