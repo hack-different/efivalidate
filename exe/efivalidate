@@ -3,13 +3,14 @@ require 'bundler/setup'
 
 require 'efivalidate'
 require 'optparse'
+require 'ostruct'
 
 
 options = OpenStruct.new
 options.clean = false
 options.clean_me = false
 options.ignore_me = true
-options.verbose = false
+options.verbose = true
 options.efi_file = nil
 options.ealf_files = [ File.join(__dir__, '../spec/fixtures/baselines/*.ealf') ]
 
@@ -28,7 +29,7 @@ opt_parser = OptionParser.new do |opts|
   end
 
   opts.on("--baseline a,b,c", Array, "EALF files to use for validation") do |b|
-    options.ealf_files = b.map { |f| File.join(Dir.pwd, f) }
+    options.ealf_files = b.map { |f| File.expand_path(f) }
   end
 
   opts.on("--ignore-me", "Ignore Intel ME mismatches (useful if HAP set)") do
@@ -42,26 +43,57 @@ end
 
 opt_parser.parse!(ARGV)
 
-baseline_files = options.flat_map { |glob| Dir.glob(glob)  }
+unless ARGV.last
+  puts "No EFI file provided to parse"
+  exit(-1)
+end
 
-efi_file = File.join(Dir.pwd, ARGV.last)
-efi_data = File.read(efi_file)
+baseline_files = options.ealf_files.flat_map { |glob| Dir.glob(glob)  }
+
+puts "Loaded #{baseline_files.count} baseline files\n" if options.verbose
+
+efi_file = File.expand_path(ARGV.last)
+efi_data = File.open(efi_file, 'rb') { |f| f.read }
 
 
 def evaluate_baseline(baseline_file, efi_data)
-  data = File.read(baseline)
+  data = File.open(baseline_file, 'rb') { |f| f.read }
 
-  parser = EFIValidate::EALFParser(data)
+  parser = EFIValidate::EALFParser.new(data).tap do |p|
+    p.filename = File.expand_path(baseline_file)
+  end
 
-  EFIValidate::EFIValidator(parser, efi_data)
+  EFIValidate::EFIValidator.new(parser, efi_data)
 end
 
-valid_match = (baseline_files.map { |baseline| -> { evaluate_baseline(baseline) } }).first(&:valid?)
+evaluators = baseline_files.map do |baseline|
+  -> { evaluate_baseline(baseline, efi_data) }
+end
 
-if options.clean
+valid_match = evaluators.find do |evaluator|
+  validator = evaluator.call
+
+  puts "Evaluating baseline #{validator.filename}" if options.verbose
+
+  if validator.valid?
+    validator
+  else
+    if baseline_files.count == 1
+      validator.errors.each do |error|
+        puts error.to_s
+      end
+    end
+
+    nil
+  end
+end
+
+if valid_match and options.clean
   cleaner = EFIValidate::EFICleaner(valid_match, efi_file)
 
   cleaner.clean!
 end
 
-puts "Valid firmware match from file #{match.}"
+puts "Valid firmware match from file #{valid_match.filename}" and exit(0) if valid_match
+puts "No valid firmware baseline for #{efi_file}"
+exit(1)

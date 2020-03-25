@@ -3,12 +3,10 @@ module EFIValidate
   class EFIValidator
     attr_reader :parser, :data, :errors
 
-    def initialize(parser, file)
+    def initialize(parser, data)
       @parser = parser
 
-      reader = File.open(file, mode: 'rb')
-      @data = reader.read
-      reader.close
+      @data = data
 
       perform_core_sec_fixup if @parser.rows.any?(&:core_sec?)
     end
@@ -42,6 +40,10 @@ module EFIValidate
 
     def validate
       validate! unless @errors
+    end
+
+    def filename
+      @parser.filename
     end
 
     def valid?
