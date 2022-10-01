@@ -11,8 +11,9 @@ module EFIValidate
     EALF_MAGIC = 'EALF'.freeze
 
     EALF_ROW_SIZE = 28
+    EALF_HERADER_SIZE = 97
 
-    EALF_HASH_FUNCTIONS = { 0 => { size: 20, function: -> { Digest::SHA1.new } }, 1 => { size: 32, funciton: -> { Digest::SHA2.new(256)} } }
+    EALF_HASH_FUNCTIONS = { 0 => { size: 20, function: -> { Digest::SHA1.new } }, 1 => { size: 32, function: -> { Digest::SHA2.new(256)} } }
 
     EALF_HASH_SHA1 = 0
     EALF_HASH_SHA256 = 1
@@ -26,7 +27,7 @@ module EFIValidate
     end
 
     def create_hash
-      EFIValidate::EALFHeader::EALF_HASH_FUNCTIONS[self.ealf_hash_function][:funciton].call
+      EFIValidate::EALFHeader::EALF_HASH_FUNCTIONS[self.ealf_hash_function][:function].call
     end
   end
 end
